@@ -106,7 +106,8 @@
         wheel.style.transform = `rotate(${randomRotation}deg)`;
 
         setTimeout(() => {
-            const finalDeg = randomRotation % 360;
+            // CORREÇÃO: alinhar o cálculo com o ponteiro que aponta para cima
+            const finalDeg = (randomRotation + 90) % 360;
             const selectedNumber = Math.floor(finalDeg / 45) + 1;
 
             resultBox.textContent = "Número sorteado: " + selectedNumber;
