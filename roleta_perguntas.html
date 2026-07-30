@@ -16,28 +16,25 @@
         width: 300px;
         height: 300px;
         border-radius: 50%;
-        border: 10px solid #333;
         margin: 0 auto;
         position: relative;
-        transition: transform 4s cubic-bezier(0.33, 1, 0.68, 1);
+        transition: transform 4s ease-out;
+        overflow: hidden;
     }
 
     .slice {
         position: absolute;
-        width: 0;
-        height: 0;
-        border-top: 150px solid transparent;
-        border-bottom: 150px solid transparent;
-        border-right: 150px solid red;
-        left: 0;
-        top: 0;
-        transform-origin: 150px 150px;
+        width: 50%;
+        height: 50%;
+        left: 50%;
+        top: 50%;
+        transform-origin: 0% 0%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         font-size: 22px;
         font-weight: bold;
         color: white;
-        display: flex;
-        align-items: center;
-        justify-content: center;
     }
 
     #pointer {
@@ -89,25 +86,29 @@
     const resultBox = document.getElementById("result");
     const sound = document.getElementById("sound");
 
-    // Criar 8 fatias reais (triângulos)
+    // Criar 8 fatias reais
     for (let i = 0; i < 8; i++) {
         const slice = document.createElement("div");
         slice.className = "slice";
-        slice.style.borderRightColor = `hsl(${i * 45}, 70%, 50%)`;
-        slice.style.transform = `rotate(${i * 45}deg)`;
+        slice.style.transform = `rotate(${i * 45}deg) skewY(-45deg)`;
+        slice.style.background = `hsl(${i * 45}, 70%, 50%)`;
         slice.textContent = i + 1;
         wheel.appendChild(slice);
     }
+
+    let currentRotation = 0;
 
     function spinWheel() {
         resultBox.classList.remove("pop");
         resultBox.style.opacity = 0;
 
-        const randomRotation = 3600 + Math.floor(Math.random() * 360);
-        wheel.style.transform = `rotate(${randomRotation}deg)`;
+        const extraRotation = 3600 + Math.floor(Math.random() * 360);
+        currentRotation += extraRotation;
+
+        wheel.style.transform = `rotate(${currentRotation}deg)`;
 
         setTimeout(() => {
-            const finalDeg = (randomRotation + 22.5) % 360;
+            const finalDeg = (currentRotation + 22.5) % 360;
             const selectedNumber = Math.floor(finalDeg / 45) + 1;
 
             resultBox.textContent = "Número sorteado: " + selectedNumber;
