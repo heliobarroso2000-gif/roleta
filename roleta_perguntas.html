@@ -2,127 +2,46 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Roleta 1 a 8</title>
-
+<title>Sorteio 1 a 8</title>
 <style>
-    body {
-        font-family: Arial, sans-serif;
-        text-align: center;
-        background: #f0f0f0;
-        padding-top: 40px;
-    }
-
-    #wheel {
-        width: 300px;
-        height: 300px;
-        border-radius: 50%;
-        margin: 0 auto;
-        position: relative;
-        transition: transform 4s ease-out;
-        overflow: hidden;
-        border: 8px solid #333;
-    }
-
-    .slice {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        clip-path: polygon(50% 50%, 100% 0%, 100% 100%);
-        transform-origin: 50% 50%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 22px;
-        font-weight: bold;
-        color: white;
-    }
-
-    .slice span {
-        transform: rotate(-90deg);
-    }
-
-    #pointer {
-        width: 0;
-        height: 0;
-        border-left: 20px solid transparent;
-        border-right: 20px solid transparent;
-        border-bottom: 30px solid red;
-        margin: 20px auto;
-    }
-
-    button {
-        margin-top: 20px;
-        padding: 12px 25px;
-        font-size: 18px;
-        cursor: pointer;
-    }
-
-    #result {
-        margin-top: 25px;
-        font-size: 32px;
-        font-weight: bold;
-        color: #333;
-        opacity: 0;
-        transition: all 0.4s ease;
-    }
-
-    #result.pop {
-        transform: scale(1.4);
-        opacity: 1;
-    }
+  body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background: #f0f0f0;
+    padding-top: 40px;
+  }
+  button {
+    margin-top: 20px;
+    padding: 12px 25px;
+    font-size: 18px;
+    cursor: pointer;
+  }
+  #result {
+    margin-top: 25px;
+    font-size: 32px;
+    font-weight: bold;
+    color: #333;
+  }
 </style>
 </head>
 <body>
 
-<h2>Roleta 1 a 8</h2>
+<h2>Sorteio de número entre 1 e 8</h2>
 
-<div id="pointer"></div>
-<div id="wheel"></div>
-
-<button onclick="spinWheel()">Girar</button>
+<button onclick="sortear()">Sortear</button>
 
 <div id="result"></div>
 
-<audio id="sound" src="https://www.soundjay.com/buttons/sounds/button-16.mp3"></audio>
-
 <script>
-    const wheel = document.getElementById("wheel");
-    const resultBox = document.getElementById("result");
-    const sound = document.getElementById("sound");
+  function sortear() {
+    const result = document.getElementById('result');
+    result.textContent = 'Sorteando...';
 
-    // Criar 8 fatias exatas
-    for (let i = 0; i < 8; i++) {
-        const slice = document.createElement("div");
-        slice.className = "slice";
-        slice.style.background = `hsl(${i * 45}, 70%, 50%)`;
-        slice.style.transform = `rotate(${i * 45}deg)`;
-        const label = document.createElement("span");
-        label.textContent = i + 1;
-        slice.appendChild(label);
-        wheel.appendChild(slice);
-    }
-
-    let currentRotation = 0;
-
-    function spinWheel() {
-        resultBox.classList.remove("pop");
-        resultBox.style.opacity = 0;
-
-        const extraRotation = 3600 + Math.floor(Math.random() * 360);
-        currentRotation += extraRotation;
-
-        wheel.style.transform = `rotate(${currentRotation}deg)`;
-
-        setTimeout(() => {
-            const finalDeg = (currentRotation + 22.5) % 360;
-            const selectedNumber = Math.floor(finalDeg / 45) + 1;
-
-            resultBox.textContent = "Número sorteado: " + selectedNumber;
-            resultBox.classList.add("pop");
-
-            sound.play();
-        }, 4000);
-    }
+    setTimeout(() => {
+      const numero = Math.floor(Math.random() * 8) + 1;
+      result.textContent = 'Número sorteado: ' + numero;
+    }, 800);
+  }
 </script>
 
 </body>
