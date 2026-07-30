@@ -19,11 +19,10 @@
         border: 10px solid #333;
         margin: 0 auto;
         position: relative;
-        overflow: hidden;
         transition: transform 4s cubic-bezier(0.33, 1, 0.68, 1);
     }
 
-    .number {
+    .slice {
         position: absolute;
         width: 50%;
         height: 50%;
@@ -33,9 +32,10 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        font-size: 28px;
+        font-size: 26px;
         font-weight: bold;
         color: white;
+        border: 1px solid rgba(0,0,0,0.2);
     }
 
     #pointer {
@@ -80,7 +80,6 @@
 
 <div id="result"></div>
 
-<!-- Som -->
 <audio id="sound" src="https://www.soundjay.com/buttons/sounds/button-16.mp3"></audio>
 
 <script>
@@ -88,13 +87,13 @@
     const resultBox = document.getElementById("result");
     const sound = document.getElementById("sound");
 
-    // Criar 8 fatias numeradas
-    for (let i = 1; i <= 8; i++) {
+    // Criar 8 fatias perfeitas
+    for (let i = 0; i < 8; i++) {
         const slice = document.createElement("div");
-        slice.className = "number";
-        slice.style.transform = `rotate(${(i - 1) * 45}deg) skewY(-45deg)`;
+        slice.className = "slice";
+        slice.style.transform = `rotate(${i * 45}deg)`;
         slice.style.background = `hsl(${i * 45}, 70%, 50%)`;
-        slice.textContent = i;
+        slice.textContent = i + 1;
         wheel.appendChild(slice);
     }
 
@@ -106,8 +105,7 @@
         wheel.style.transform = `rotate(${randomRotation}deg)`;
 
         setTimeout(() => {
-            // CORREÇÃO: alinhar o cálculo com o ponteiro que aponta para cima
-            const finalDeg = (randomRotation + 90) % 360;
+            const finalDeg = (randomRotation + 22.5) % 360;
             const selectedNumber = Math.floor(finalDeg / 45) + 1;
 
             resultBox.textContent = "Número sorteado: " + selectedNumber;
