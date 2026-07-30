@@ -24,18 +24,20 @@
 
     .slice {
         position: absolute;
-        width: 50%;
-        height: 50%;
-        left: 50%;
-        top: 50%;
-        transform-origin: 0% 0%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 26px;
+        width: 0;
+        height: 0;
+        border-top: 150px solid transparent;
+        border-bottom: 150px solid transparent;
+        border-right: 150px solid red;
+        left: 0;
+        top: 0;
+        transform-origin: 150px 150px;
+        font-size: 22px;
         font-weight: bold;
         color: white;
-        border: 1px solid rgba(0,0,0,0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     #pointer {
@@ -87,12 +89,12 @@
     const resultBox = document.getElementById("result");
     const sound = document.getElementById("sound");
 
-    // Criar 8 fatias perfeitas
+    // Criar 8 fatias reais (triângulos)
     for (let i = 0; i < 8; i++) {
         const slice = document.createElement("div");
         slice.className = "slice";
+        slice.style.borderRightColor = `hsl(${i * 45}, 70%, 50%)`;
         slice.style.transform = `rotate(${i * 45}deg)`;
-        slice.style.background = `hsl(${i * 45}, 70%, 50%)`;
         slice.textContent = i + 1;
         wheel.appendChild(slice);
     }
