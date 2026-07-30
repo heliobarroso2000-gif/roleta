@@ -20,20 +20,25 @@
         position: relative;
         transition: transform 4s ease-out;
         overflow: hidden;
+        border: 8px solid #333;
     }
 
     .slice {
         position: absolute;
-        width: 300px;
-        height: 300px;
+        width: 100%;
+        height: 100%;
         clip-path: polygon(50% 50%, 100% 0%, 100% 100%);
         transform-origin: 50% 50%;
         display: flex;
         justify-content: center;
         align-items: center;
-        font-size: 26px;
+        font-size: 22px;
         font-weight: bold;
         color: white;
+    }
+
+    .slice span {
+        transform: rotate(-90deg);
     }
 
     #pointer {
@@ -85,13 +90,15 @@
     const resultBox = document.getElementById("result");
     const sound = document.getElementById("sound");
 
-    // Criar 8 fatias perfeitas
+    // Criar 8 fatias exatas
     for (let i = 0; i < 8; i++) {
         const slice = document.createElement("div");
         slice.className = "slice";
         slice.style.background = `hsl(${i * 45}, 70%, 50%)`;
         slice.style.transform = `rotate(${i * 45}deg)`;
-        slice.textContent = i + 1;
+        const label = document.createElement("span");
+        label.textContent = i + 1;
+        slice.appendChild(label);
         wheel.appendChild(slice);
     }
 
