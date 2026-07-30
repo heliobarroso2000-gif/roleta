@@ -107,4 +107,15 @@
 
         setTimeout(() => {
             const finalDeg = randomRotation % 360;
-            const selectedNumber = Math.floor(final
+            const selectedNumber = Math.floor(finalDeg / 45) + 1;
+
+            resultBox.textContent = "Número sorteado: " + selectedNumber;
+            resultBox.classList.add("pop");
+
+            sound.play();
+        }, 4000);
+    }
+</script>
+
+</body>
+</html>
